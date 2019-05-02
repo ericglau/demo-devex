@@ -51,8 +51,9 @@ public class SystemHealth implements HealthCheck {
 7. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true, notice the difference in the /health endpoint
 8. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties` and notice the change is picked up and the /health endpoint changes again 
 9. Make changes to the `src/main/webapp/index.html` (or any other webapp files) and notice that the home page changes
-10. The port 8787 is opened by default for debugging, try connecting to it
-11. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
+10. Create the [HealthTest](https://raw.githubusercontent.com/OpenLiberty/guide-microprofile-health/master/finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java) class as an integration test. Notice the tests are run and should pass.
+11. The port 8787 is opened by default for debugging, try connecting to it
+12. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
 
 ## How to add liberty:x to an existing project
 
