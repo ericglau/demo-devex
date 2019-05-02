@@ -13,7 +13,7 @@
 * debug port opened by default at port: 8787
 
 ## How to try out liberty:x mode
-1. Clone this modified openliberty-health guide
+1. Clone this repo `git clone git@github.ibm.com:mp-ls/liberty-x-demo.git`
 2. Run `mvn install liberty:x` to start liberty:x mode
 3. Add mpHealth-1.0 feature to the server.xml, notice you can now access the /health endpoint (though it's just an empty array)
 <details>
