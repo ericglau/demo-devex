@@ -45,8 +45,8 @@ public class SystemHealth implements HealthCheck {
   }
 }
 ```
-
 </details>
+
 
 5. The console reflects integration tests are running automatically on a separate thread.
 
