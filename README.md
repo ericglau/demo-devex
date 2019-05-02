@@ -1,5 +1,4 @@
 # liberty:x Demo
-This guide was adapted from the [Open Liberty MicroProfile Health Guide](https://openliberty.io/guides/microprofile-health.html).
 
 ## Overview of liberty:x mode
 * hot deployment with background compilation mode so that java/resource/configuration file changes are picked up while your server is running
