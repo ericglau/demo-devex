@@ -15,16 +15,44 @@ This guide was adapted from the [Open Liberty MicroProfile Health Guide](https:/
 
 ## How to try out liberty:x mode
 1. Clone the modified openliberty-health guide: 
-1. Run `mvn compile liberty:x` to start liberty:x mode
-1. Add mpHealth-1.0 feature to the server.xml, notice you can now access the /health endpoint (though it's just an empty array)
-1. Create the [SystemHealth](https://raw.githubusercontent.com/OpenLiberty/guide-microprofile-health/master/finish/src/main/java/io/openliberty/guides/system/SystemHealth.java) class (notice changes seen at the /health endpoint) 
-1. Notice tests are run automatically on a separate thread
-1. Create the [InventoryHealth](https://raw.githubusercontent.com/OpenLiberty/guide-microprofile-health/master/finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java) class (notice changes seen at the /health endpoint)
-1. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true, notice the difference in the /health endpoint
-1. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties` and notice the change is picked up and the /health endpoint changes again 
-1. Make changes to the `src/main/webapp/index.html` (or any other webapp files) and notice that the home page changes
-1. The port 8787 is opened by default for debugging, try connecting to it
-1. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
+2. Run `mvn compile liberty:x` to start liberty:x mode
+3. Add mpHealth-1.0 feature to the server.xml, notice you can now access the /health endpoint (though it's just an empty array)
+<details>
+    <summary>4. Create the SystemHealth class (notice changes seen at the /health endpoint) </summary>
+
+```
+package io.openliberty.guides.system;
+
+import javax.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.health.Health;
+import org.eclipse.microprofile.health.HealthCheck;
+import org.eclipse.microprofile.health.HealthCheckResponse;
+
+@Health
+@ApplicationScoped
+public class SystemHealth implements HealthCheck {
+  @Override
+  public HealthCheckResponse call() {
+    if (!System.getProperty("wlp.server.name").startsWith("defaultServer")) {
+      return HealthCheckResponse.named(SystemResource.class.getSimpleName())
+                                .withData("default server", "not available").down()
+                                .build();
+    }
+    return HealthCheckResponse.named(SystemResource.class.getSimpleName())
+                              .withData("default server", "available").up().build();
+  }
+}
+```
+
+</details>
+
+5. Notice tests are run automatically on a separate thread
+6. Create the [InventoryHealth](https://raw.githubusercontent.com/OpenLiberty/guide-microprofile-health/master/finish/src/main/java/io/openliberty/guides/inventory/InventoryHealth.java) class (notice changes seen at the /health endpoint)
+7. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true, notice the difference in the /health endpoint
+8. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties` and notice the change is picked up and the /health endpoint changes again 
+9. Make changes to the `src/main/webapp/index.html` (or any other webapp files) and notice that the home page changes
+10. The port 8787 is opened by default for debugging, try connecting to it
+11. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
 
 ## How to add liberty:x to an existing project
 
