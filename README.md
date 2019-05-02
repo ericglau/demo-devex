@@ -14,8 +14,11 @@
 
 ## How to try out liberty:x mode
 1. Clone this repo `git clone git@github.ibm.com:mp-ls/liberty-x-demo.git`
+
 2. Run `mvn install liberty:x` to start liberty:x mode
+
 3. Add mpHealth-1.0 feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
+
 <details>
     <summary>4. Create the src/main/java/io/openliberty/guides/system/SystemHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint.  </summary>
 
@@ -105,7 +108,9 @@ public class InventoryHealth implements HealthCheck {
 </details>
 
 7. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
+
 8. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties`. Changes are reflected in the http://localhost:9080/health endpoint.
+
 9. Make changes to the `src/main/webapp/index.html` (or any other webapp files). Changes are reflected on the home page http://localhost:9080/.
 
 <details>
@@ -171,6 +176,7 @@ public class HealthTest {
 </details>
 
 11. Connect to the debug port 8787 with a debugger.
+
 12. When you are done use ctl-c to terminate liberty:x mode and stop your server
 
 ## How to add liberty:x to an existing project
