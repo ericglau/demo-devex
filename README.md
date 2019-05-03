@@ -191,15 +191,15 @@ public class HealthTest {
 
 ### To Use 
 1. Perform the steps in the "To Build" section above.
-1. In your pom.xml specify version `2.6.5-SNAPSHOT` for the liberty-maven-plugin 
+2. In your pom.xml specify version `2.6.5-SNAPSHOT` for the liberty-maven-plugin 
 ```
 <plugin>
     <groupId>net.wasdev.wlp.maven.plugins</groupId>
     <artifactId>liberty-maven-plugin</artifactId>
     <version>2.6.5-SNAPSHOT</version>
 ```
-2. Ensure you have no compilation errors by running `mvn install`
-3. Provided you have no compilation errors, start liberty:x mode with `mvn liberty:x`
-4. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
-5. Attach a debugger, by default the liberty:x mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
-6. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
+3. Ensure you have no compilation errors by running `mvn install`
+4. Provided you have no compilation errors, start liberty:x mode with `mvn liberty:x`
+5. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
+6. Attach a debugger, by default the liberty:x mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
+7. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
