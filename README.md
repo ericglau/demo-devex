@@ -182,7 +182,7 @@ public class HealthTest {
 ## How to add liberty:x to an existing project
 
 ### To Build
-1. Clone the liberty:x development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven): `git clone git@github.ibm.com:mp-ls/ci.maven.git` and checkout "xMode" branch 
+1. Clone the liberty:x development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
 2. Clone [ci.ant](https://github.com/WASdev/ci.ant): `git clone git@github.com:WASdev/ci.ant.git`
 3. Build ci.ant `mvn clean install` and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven plugin
 
@@ -195,7 +195,7 @@ public class HealthTest {
     <artifactId>liberty-maven-plugin</artifactId>
     <version>2.6.5-SNAPSHOT</version>
 ```
-2. Ensure you have no compilation errors by running `mvn compile`
+2. Ensure you have no compilation errors by running `mvn install`
 3. Provided you have no compilation errors, start liberty:x mode with `mvn liberty:x`
 4. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
 5. Attach a debugger, by default the liberty:x mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
