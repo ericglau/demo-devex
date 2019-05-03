@@ -6,7 +6,7 @@
 
 ### Specific functionalities:
 * default server starts on `mvn liberty:x` and stops on ctl-c
-* java source file changes will be picked up dynamically (any java files in the `src/main/java` and `src/main/test` directory)
+* java source file changes will be picked up dynamically (any java files in the `src/main/java` and `src/test/java` directory)
 * server configuration file changes (any files in the config directory indicated in the pom.xml) will be picked up dynamically 
 * resource file changes (any files in the `src/main/resources` directory)
 * unit and integration tests on a seperate server and thread after every successful compile  
