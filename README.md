@@ -1,7 +1,7 @@
 # liberty:x Demo
 
 ## Overview of liberty:x mode
-* hot deployment with background compilation mode so that `java/resource/configuration` file changes are picked up while your server is running
+* hot deployment with background compilation mode so that java, resource, and configuration file changes are picked up while your server is running
 * built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
 
 ### Specific functionalities:
