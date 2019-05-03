@@ -1,5 +1,7 @@
 # liberty:x Demo
 
+[Video of Demo](https://ibm.box.com/s/go8y0v9ls3lgxfcwymdd0vd20kp586nj)
+
 ## Overview of liberty:x mode
 * hot deployment with background compilation mode so that java, resource, and configuration file changes are picked up while your server is running
 * built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
