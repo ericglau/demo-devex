@@ -181,7 +181,7 @@ public class HealthTest {
 
 12. When you are done use ctl-c to terminate liberty:x mode and stop your server
 
-## How to add liberty:x to an existing project
+## How to use liberty:x in an existing project
 
 ### To Build
 1. Clone the liberty:x development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
@@ -190,6 +190,7 @@ public class HealthTest {
 
 
 ### To Use 
+1. Perform the steps in the "To Build" section above.
 1. In your pom.xml specify version `2.6.5-SNAPSHOT` for the liberty-maven-plugin 
 ```
 <plugin>
