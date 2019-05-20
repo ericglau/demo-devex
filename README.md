@@ -1,23 +1,23 @@
-# liberty:x Demo
+# liberty:dev Demo
 
 [Video of Demo](https://ibm.box.com/s/go8y0v9ls3lgxfcwymdd0vd20kp586nj)
 
-## Overview of liberty:x mode
+## Overview of liberty:dev mode
 * hot deployment with background compilation mode so that java, resource, and configuration file changes are picked up while your server is running
 * built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
 
 ### Specific functionalities:
-* default server starts on `mvn liberty:x` and stops on ctl-c
+* default server starts on `mvn liberty:dev` and stops on ctl-c
 * java source file changes will be picked up dynamically (any java files in the `src/main/java` and `src/test/java` directory)
 * server configuration file changes (any files in the config directory indicated in the pom.xml) will be picked up dynamically 
 * resource file changes (any files in the `src/main/resources` directory)
 * unit and integration tests on a seperate server and thread after every successful compile  
 * debug port opened by default at port: 8787, works with any debugger (tested with VS Code and Eclipse)
 
-## How to try out liberty:x mode
+## How to try out liberty:dev mode
 1. Clone this repo `git clone git@github.ibm.com:mp-ls/liberty-x-demo.git`
 
-2. Run `mvn install liberty:x` to start liberty:x mode
+2. Run `mvn install liberty:dev` to start liberty:dev mode
 
 3. Add mpHealth-1.0 feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
 
@@ -179,12 +179,12 @@ public class HealthTest {
 
 11. Connect to the debug port 8787 with a debugger.
 
-12. When you are done use ctl-c to terminate liberty:x mode and stop your server
+12. When you are done use ctl-c to terminate liberty:dev mode and stop your server
 
-## How to use liberty:x in an existing project
+## How to use liberty:dev in an existing project
 
 ### To Build
-1. Clone the liberty:x development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
+1. Clone the liberty:dev development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
 2. Clone [ci.ant](https://github.com/WASdev/ci.ant): `git clone git@github.com:WASdev/ci.ant.git`
 3. Build ci.ant `mvn clean install` and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven plugin
 
@@ -199,7 +199,7 @@ public class HealthTest {
     <version>2.6.5-SNAPSHOT</version>
 ```
 3. Ensure you have no compilation errors by running `mvn install`
-4. Provided you have no compilation errors, start liberty:x mode with `mvn liberty:x`
+4. Provided you have no compilation errors, start liberty:dev mode with `mvn liberty:dev`
 5. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
-6. Attach a debugger, by default the liberty:x mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
-7. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
+6. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
+7. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
