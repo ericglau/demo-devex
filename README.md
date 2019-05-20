@@ -1,21 +1,21 @@
-# liberty:x Demo
+# liberty:dev Demo
 This guide was adapted from the [Open Liberty MicroProfile Health Guide](https://openliberty.io/guides/microprofile-health.html).
 
-## Overview of liberty:x mode
+## Overview of liberty:dev mode
 * hot deployment with background compilation mode so that java/resource/configuration file changes are picked up while your server is running
 * built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
 
 ### Specific functionalities:
-* default server starts on `mvn liberty:x` and stops on ctl-c
+* default server starts on `mvn liberty:dev` and stops on ctl-c
 * java source file changes will be picked up dynamically (any java files in the `src/main/java` directory)
 * server configuration file changes (any files in the config directory indicated in the pom.xml) will be picked up dynamically 
 * resource file changes (any files in the `src/main/resources` directory)
 * unit and integration tests on a seperate server and thread after every successful compile  
 * debug port opened by default at port: 8787
 
-## How to try out liberty:x mode
+## How to try out liberty:dev mode
 1. Clone this modified openliberty-health guide
-2. Run `mvn install liberty:x` to start liberty:x mode
+2. Run `mvn install liberty:dev` to start liberty:dev mode
 3. Add mpHealth-1.0 feature to the server.xml, notice you can now access the /health endpoint (though it's just an empty array)
 <details>
     <summary>4. Create the SystemHealth class (notice changes seen at the /health endpoint) </summary>
@@ -53,9 +53,9 @@ public class SystemHealth implements HealthCheck {
 9. Make changes to the `src/main/webapp/index.html` (or any other webapp files) and notice that the home page changes
 10. Create the [HealthTest](https://raw.githubusercontent.com/OpenLiberty/guide-microprofile-health/master/finish/src/test/java/it/io/openliberty/guides/health/HealthTest.java) class as an integration test. Notice the tests are run and should pass.
 11. The port 8787 is opened by default for debugging, try connecting to it
-12. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
+12. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
 
-## How to add liberty:x to an existing project
+## How to add liberty:dev to an existing project
 
 ### To Build
 1. Clone [ci.maven](https://github.ibm.com/mp-ls/ci.maven): `git clone git@github.ibm.com:mp-ls/ci.maven.git` and checkout "xMode" branch 
@@ -72,7 +72,7 @@ public class SystemHealth implements HealthCheck {
     <version>2.6.5-SNAPSHOT</version>
 ```
 2. Ensure you have no compilation errors by running `mvn compile`
-3. Provided you have no compilation errors, start liberty:x mode with `mvn liberty:x`
+3. Provided you have no compilation errors, start liberty:dev mode with `mvn liberty:dev`
 4. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
-5. Attach a debugger, by default the liberty:x mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
-6. When you are done use 'ctl-c' to terminate liberty:x mode and stop your server
+5. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
+6. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
