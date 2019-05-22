@@ -185,7 +185,7 @@
         <configuration>
           <assemblyArtifact>
             <groupId>io.openliberty</groupId>
-            <artifactId>openliberty-runtime</artifactId>
+            <artifactId>openliberty-kernel</artifactId>
             <version>RELEASE</version>
             <type>zip</type>
           </assemblyArtifact>
