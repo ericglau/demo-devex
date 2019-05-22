@@ -3,7 +3,7 @@
 [Video of Demo](https://ibm.box.com/s/go8y0v9ls3lgxfcwymdd0vd20kp586nj)
 
 ## Overview of liberty:dev mode
-* hot deployment with background compilation mode so that java, resource, and configuration file changes are picked up while your server is running
+* hot deployment with background compilation mode so that added pom dependencies, java, resource, and configuration file changes are picked up while your server is running
 * built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
 
 ### Specific functionalities:
@@ -11,6 +11,7 @@
 * java source file changes will be picked up dynamically (any java files in the `src/main/java` and `src/test/java` directory)
 * server configuration file changes (any files in the config directory indicated in the pom.xml) will be picked up dynamically 
 * resource file changes (any files in the `src/main/resources` directory)
+* added dependencies to pom.xml
 * unit and integration tests on a seperate server and thread after every successful compile  
 * debug port opened by default at port: 8787, works with any debugger (tested with VS Code and Eclipse)
 
@@ -19,10 +20,12 @@
 
 2. Run `mvn install liberty:dev` to start liberty:dev mode
 
-3. Add mpHealth-1.0 feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
+3. Enable the mpHealth-1.0 dependency in the pom.xml.  Notice that the server stops, installs the new dependency and restarts.
+
+4. Add mpHealth-1.0 feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
 
 <details>
-    <summary>4. Create the src/main/java/io/openliberty/guides/system/SystemHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint.  </summary>
+    <summary>5. Create the src/main/java/io/openliberty/guides/system/SystemHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint.  </summary>
 
 ```
 package io.openliberty.guides.system;
@@ -50,10 +53,10 @@ public class SystemHealth implements HealthCheck {
 </details>
 
 
-5. The console reflects integration tests are running automatically on a separate thread.
+6. The console reflects integration tests are running automatically on a separate thread.
 
 <details>
-    <summary>6. Create the src/main/java/io/openliberty/guides/inventory/InventoryHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint. </summary>
+    <summary>7. Create the src/main/java/io/openliberty/guides/inventory/InventoryHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint. </summary>
 
 ```
 package io.openliberty.guides.inventory;
@@ -109,14 +112,14 @@ public class InventoryHealth implements HealthCheck {
 ```
 </details>
 
-7. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
+8. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
 
-8. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties`. Changes are reflected in the http://localhost:9080/health endpoint.
+9. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties`. Changes are reflected in the http://localhost:9080/health endpoint.
 
-9. Make changes to the `src/main/webapp/index.html` (or any other webapp files). Changes are reflected on the home page http://localhost:9080/.
+10. Make changes to the `src/main/webapp/index.html` (or any other webapp files). Changes are reflected on the home page http://localhost:9080/.
 
 <details>
-    <summary>10. Create the src/test/java/it/io/openliberty/guides/health/HealthTest.java class as an integration test. The tests are run and should pass. </summary>
+    <summary>11. Create the src/test/java/it/io/openliberty/guides/health/HealthTest.java class as an integration test. The tests are run and should pass. </summary>
     
 ```
 package it.io.openliberty.guides.health;
@@ -177,9 +180,9 @@ public class HealthTest {
 ```
 </details>
 
-11. Connect to the debug port 8787 with a debugger.
+12. Connect to the debug port 8787 with a debugger.
 
-12. When you are done use ctl-c to terminate liberty:dev mode and stop your server
+13. When you are done use ctl-c to terminate liberty:dev mode and stop your server
 
 ## How to use liberty:dev in an existing project
 
