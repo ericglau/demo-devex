@@ -10,8 +10,9 @@
 * default server starts on `mvn liberty:dev` and stops on ctl-c
 * java source file changes will be picked up dynamically (any java files in the `src/main/java` and `src/test/java` directory)
 * server configuration file changes (any files in the config directory indicated in the pom.xml) will be picked up dynamically 
+* feature dependency changes in pom.xml are picked up dynamically, triggers feature installation and server restart
 * resource file changes (any files in the `src/main/resources` directory)
-* unit and integration tests on a seperate server and thread after every successful compile  
+* unit and integration tests run on a seperate thread after every successful compile  
 * debug port opened by default at port: 8787, works with any debugger (tested with VS Code and Eclipse)
 
 ## How to try out liberty:dev mode
