@@ -87,12 +87,12 @@
         <scope>provided</scope>
     </dependency>
     <!-- tag::health[] -->
-    <dependency>
+    <!-- <dependency>
         <groupId>io.openliberty.features</groupId>
         <artifactId>mpHealth-1.0</artifactId>
         <type>esa</type>
         <scope>provided</scope>
-    </dependency>
+    </dependency> -->
     <!-- end::health[] -->
     <!-- For tests -->
     <dependency>
@@ -185,7 +185,7 @@
         <configuration>
           <assemblyArtifact>
             <groupId>io.openliberty</groupId>
-            <artifactId>openliberty-runtime</artifactId>
+            <artifactId>openliberty-kernel</artifactId>
             <version>RELEASE</version>
             <type>zip</type>
           </assemblyArtifact>
