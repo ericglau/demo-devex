@@ -11,8 +11,8 @@
 * java source file changes will be picked up dynamically (any java files in the `src/main/java` and `src/test/java` directory)
 * server configuration file changes (any files in the config directory indicated in the pom.xml) will be picked up dynamically 
 * resource file changes (any files in the `src/main/resources` directory)
-* added dependencies to pom.xml
-* unit and integration tests on a seperate server and thread after every successful compile  
+* unit and integration tests run on a seperate thread after every successful compile  
+* feature dependency changes in pom.xml are picked up dynamically, triggers feature installation and server restart
 * debug port opened by default at port: 8787, works with any debugger (tested with VS Code and Eclipse)
 
 ## How to try out liberty:dev mode
@@ -114,7 +114,9 @@ public class InventoryHealth implements HealthCheck {
 
 8. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
 
-9. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties`. Changes are reflected in the http://localhost:9080/health endpoint.
+
+9. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties`. Changes are reflected in the http://localhost:9080/health endpoint. Undo steps 7 and 8 afterwards.
+
 
 10. Make changes to the `src/main/webapp/index.html` (or any other webapp files). Changes are reflected on the home page http://localhost:9080/.
 
