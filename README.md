@@ -16,7 +16,7 @@
 * debug port opened by default at port: 8787, works with any debugger (tested with VS Code and Eclipse)
 
 ## How to try out liberty:dev mode
-1. Clone this repo `git clone git@github.ibm.com:mp-ls/liberty-x-demo.git`
+1. Clone this repo `git clone git@github.ibm.com:mp-ls/liberty-dev-demo.git`
 
 2. Run `mvn install liberty:dev` to start liberty:dev mode
 
