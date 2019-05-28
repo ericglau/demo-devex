@@ -190,7 +190,7 @@ public class HealthTest {
 
 ### To Build
 1. Clone the liberty:dev development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
-2. Clone [ci.ant](https://github.com/WASdev/ci.ant): `git clone git@github.com:WASdev/ci.ant.git`
+2. Clone the liberty:dev development version of [ci.ant](https://github.ibm.com/mp-ls/ci.ant) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.ant.git`
 3. Build ci.ant `mvn clean install` and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven plugin
 
 
