@@ -12,15 +12,15 @@
 * server configuration file changes (any files in the config directory indicated in the pom.xml) will be picked up dynamically 
 * resource file changes (any files in the `src/main/resources` directory)
 * unit and integration tests run on a seperate thread after every successful compile  
-* feature dependency changes in pom.xml are picked up dynamically, triggers feature installation and server restart
-* debug port opened by default at port: 8787, works with any debugger (tested with VS Code and Eclipse)
+* feature dependency changes in pom.xml are picked up dynamically, triggers feature installation
+* debug port opened by default at port: 7777, works with any debugger (tested with VS Code and Eclipse)
 
 ## How to try out liberty:dev mode
 1. Clone this repo `git clone git@github.ibm.com:mp-ls/liberty-dev-demo.git`
 
 2. Run `mvn install liberty:dev` to start liberty:dev mode
 
-3. Enable the mpHealth-1.0 dependency in the pom.xml.  Notice that the server stops, installs the new dependency and restarts.
+3. Enable the mpHealth-1.0 dependency in the pom.xml.  Notice that the new dependency gets automatically installed.
 
 4. Add mpHealth-1.0 feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
 
@@ -182,7 +182,7 @@ public class HealthTest {
 ```
 </details>
 
-12. Connect to the debug port 8787 with a debugger.
+12. Connect to the debug port 7777 with a debugger.
 
 13. When you are done use ctl-c to terminate liberty:dev mode and stop your server
 
@@ -190,7 +190,7 @@ public class HealthTest {
 
 ### To Build
 1. Clone the liberty:dev development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
-2. Clone the liberty:dev development version of [ci.ant](https://github.ibm.com/mp-ls/ci.ant) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.ant.git`
+2. Clone the liberty:dev development version of [ci.ant](https://github.ibm.com/mp-ls/ci.ant) on the devMode branch: `git clone -b devMode git@github.ibm.com:mp-ls/ci.ant.git`
 3. Build ci.ant `mvn clean install` and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven plugin
 
 
