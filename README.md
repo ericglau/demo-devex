@@ -188,14 +188,36 @@ public class HealthTest {
 
 ## How to use liberty:dev in an existing project
 
-### To Build
+Either build from source or download the repository from the release section of this project, then follow the steps in "To Use".
+
+### To Build from Source
 1. Clone the liberty:dev development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
 2. Clone the liberty:dev development version of [ci.ant](https://github.ibm.com/mp-ls/ci.ant) on the devMode branch: `git clone -b devMode git@github.ibm.com:mp-ls/ci.ant.git`
 3. Build ci.ant `mvn clean install` and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven plugin
 
+### To Download the Repository
+1. Download the latest `dev-mode-repository.zip` from the release section.
+1. Unzip it to a directory e.g. /tmp/devmode/repository
 
 ### To Use 
-1. Perform the steps in the "To Build" section above.
+1. Do one of the following:  
+   a) Perform the steps in the "To Build from Source".  
+OR  
+   b) Perform the steps in the "To Download the Repository" section, then add the following to your pom.xml and edit `<url>/tmp/devmode/repository</url>` to point to the directory where you unzipped the repository.
+   ```
+     <pluginRepositories>
+        <pluginRepository>
+            <id>remote-repo</id>
+            <url>/tmp/devmode/repository</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+    ```
 2. In your pom.xml specify version `2.6.5-SNAPSHOT` for the liberty-maven-plugin 
 ```
 <plugin>
