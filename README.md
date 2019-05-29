@@ -197,18 +197,18 @@ Either build from source or download the repository from the release section of 
 
 ### To Download the Repository
 1. Download the latest `repository.zip` from the [release section](https://github.ibm.com/mp-ls/liberty-dev-demo/releases).
-1. Unzip it to a directory e.g. unzip to /tmp/devmode so the resulting repository will be in /tmp/devmode/repository
+1. Unzip it to a directory. For example, unzip to `/tmp/devmode` so the resulting repository will be in `/tmp/devmode/repository`
 
 ### To Use 
 1. Do one of the following:  
    a) Perform the steps in the "To Build from Source".  
 OR  
-   b) Perform the steps in the "To Download the Repository" section, then add the following to your pom.xml and edit `<url>/tmp/devmode/repository</url>` to point to the unzipped repository.
+   b) Perform the steps in the "To Download the Repository" section, then add the following to your pom.xml and edit `<url>file:///tmp/devmode/repository</url>` to point to the unzipped repository.  Ensure you use proper [file URI format](https://en.wikipedia.org/wiki/File_URI_scheme) to point to a local directory on your filesystem.
    ```
      <pluginRepositories>
         <pluginRepository>
             <id>remote-repo</id>
-            <url>/tmp/devmode/repository</url>
+            <url>file:///tmp/devmode/repository</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -228,5 +228,5 @@ OR
 3. Ensure you have no compilation errors by running `mvn install`
 4. Provided you have no compilation errors, start liberty:dev mode with `mvn liberty:dev`
 5. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
-6. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 8787.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
+6. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 7777.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
 7. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
