@@ -196,7 +196,7 @@ Either build from source or download the repository from the release section of 
 3. Build ci.ant `mvn clean install` and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven plugin
 
 ### To Download the Repository
-1. Download the latest `dev-mode-repository.zip` from the release section.
+1. Download the latest `dev-mode-repository.zip` from the [release section](https://github.ibm.com/mp-ls/liberty-dev-demo/releases).
 1. Unzip it to a directory e.g. /tmp/devmode/repository
 
 ### To Use 
