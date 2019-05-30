@@ -191,9 +191,10 @@ public class HealthTest {
 Either build from source or download the repository from the release section of this project, then follow the steps in "To Use".
 
 ### To Build from Source
-1. Clone the liberty:dev development version of [ci.maven](https://github.ibm.com/mp-ls/ci.maven) on the xMode branch: `git clone -b xMode git@github.ibm.com:mp-ls/ci.maven.git`
-2. Clone the liberty:dev development version of [ci.ant](https://github.ibm.com/mp-ls/ci.ant) on the devMode branch: `git clone -b devMode git@github.ibm.com:mp-ls/ci.ant.git`
-3. Build ci.ant `mvn clean install -DskipTests` (the tests aren't worth it now) and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven plugin
+1. Clone the `devMode` branch of [ci.ant](https://github.com/wasdev/ci.ant): `git clone -b devMode git@github.com:wasdev/ci.ant.git`
+2. Clone the `devMode` branch of [ci.common](https://github.com/wasdev/ci.maven): `git clone -b devMode git@github.com:wasdev/ci.common.git`
+3. Clone the `devMode` branch of [ci.maven](https://github.com/wasdev/ci.ant) on the devMode branch: `git clone -b devMode git@github.com:wasdev/ci.maven.git`
+4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven-plugin
 
 ### To Download the Repository
 1. Download the latest `repository.zip` from the [release section](https://github.ibm.com/mp-ls/liberty-dev-demo/releases).
