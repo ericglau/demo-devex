@@ -191,9 +191,9 @@ public class HealthTest {
 Either build from source or download the repository from the release section of this project, then follow the steps in "To Use".
 
 ### To Build from Source
-1. Clone the `devMode` branch of [ci.ant](https://github.com/wasdev/ci.ant): `git clone -b devMode git@github.com:wasdev/ci.ant.git`
-2. Clone the `devMode` branch of [ci.common](https://github.com/wasdev/ci.maven): `git clone -b devMode git@github.com:wasdev/ci.common.git`
-3. Clone the `devMode` branch of [ci.maven](https://github.com/wasdev/ci.ant): `git clone -b devMode git@github.com:wasdev/ci.maven.git`
+1. Clone the `devMode` branch of [ci.ant](https://github.com/wasdev/ci.ant): `git clone -b devMode https://github.com/wasdev/ci.ant.git`
+2. Clone the `devMode` branch of [ci.common](https://github.com/wasdev/ci.common): `git clone -b devMode https://github.com/wasdev/ci.common.git`
+3. Clone the `devMode` branch of [ci.maven](https://github.com/wasdev/ci.maven): `git clone -b devMode https://github.com/wasdev/ci.maven.git`
 4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven-plugin
 
 ### To Download the Repository
