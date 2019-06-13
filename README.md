@@ -199,6 +199,7 @@ Either build from source or download the repository from the release section of 
 ### To Download the Repository
 1. Download the latest `repository.zip` from the [release section](https://github.ibm.com/mp-ls/liberty-dev-demo/releases).
 1. Unzip it to a directory. For example, unzip to `/tmp/devmode` so the resulting repository will be in `/tmp/devmode/repository`
+1. Clean up any previous build from the Maven cache by deleting the `~/.m2/repository/net/wasdev` directory before using the new repository in your pom.xml.
 
 ### To Use 
 1. Do one of the following:  
