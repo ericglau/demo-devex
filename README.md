@@ -196,10 +196,10 @@ public class HealthTest {
 
 ### To Use 
 1. Do one of the following:  
-   a) Perform the steps in the "To Build from Source", then in your pom.xml specify version `3.1.M1-SNAPSHOT` for the liberty-maven-plugin 
-OR  
-   b) In your pom.xml specify version `3.0.M1` for the liberty-maven-plugin, which will use the milestone release from Maven Central
-e.g.
+   a) Perform the steps in the "To Build from Source", then in your pom.xml specify version `3.1.M1-SNAPSHOT` for the liberty-maven-plugin  
+*or*  
+   b) In your pom.xml specify version `3.0.M1` for the liberty-maven-plugin, which will use the milestone release from Maven Central  
+e.g.  
 ```
 <plugin>
     <groupId>net.wasdev.wlp.maven.plugins</groupId>
