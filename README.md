@@ -16,9 +16,9 @@
 * debug port opened by default at port: 7777, works with any debugger (tested with VS Code and Eclipse)
 
 ## How to try out liberty:dev mode
-1. Clone this repo `git clone git@github.ibm.com:mp-ls/liberty-dev-demo.git`
+1. Clone this repo `git clone git@github.com:ericglau/liberty-dev-demo.git`
 
-2. Run `mvn install liberty:dev` to start liberty:dev mode
+2. Run `mvn liberty:dev` to start liberty:dev mode
 
 3. Enable the mpHealth-1.0 dependency in the pom.xml.  Notice that the new dependency gets automatically installed.
 
@@ -188,47 +188,26 @@ public class HealthTest {
 
 ## How to use liberty:dev in an existing project
 
-Either build from source or download the repository from the release section of this project, then follow the steps in "To Use".
-
-### To Build from Source
-1. Clone the `devMode` branch of [ci.ant](https://github.com/wasdev/ci.ant): `git clone -b devMode https://github.com/wasdev/ci.ant.git`
-2. Clone the `devMode` branch of [ci.common](https://github.com/wasdev/ci.common): `git clone -b devMode https://github.com/wasdev/ci.common.git`
-3. Clone the `devMode` branch of [ci.maven](https://github.com/wasdev/ci.maven): `git clone -b devMode https://github.com/wasdev/ci.maven.git`
-4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `2.6.5-SNAPSHOT` of the liberty-maven-plugin
-
-### To Download the Repository
-1. Download the latest `repository.zip` from the [release section](https://github.ibm.com/mp-ls/liberty-dev-demo/releases).
-1. Unzip it to a directory. For example, unzip to `/tmp/devmode` so the resulting repository will be in `/tmp/devmode/repository`
-1. Clean up any previous build from the Maven cache by deleting the `~/.m2/repository/net/wasdev` directory before using the new repository in your pom.xml.
+### (Optional) To Build from Source
+1. Clone [ci.ant](https://github.com/wasdev/ci.ant): `git clone https://github.com/wasdev/ci.ant.git`
+2. Clone [ci.common](https://github.com/wasdev/ci.common): `git clone https://github.com/wasdev/ci.common.git`
+3. Clone [ci.maven](https://github.com/wasdev/ci.maven): `git clone https://github.com/wasdev/ci.maven.git`
+4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `3.1.M1-SNAPSHOT` of the liberty-maven-plugin
 
 ### To Use 
 1. Do one of the following:  
-   a) Perform the steps in the "To Build from Source".  
+   a) Perform the steps in the "To Build from Source", then in your pom.xml specify version `3.1.M1-SNAPSHOT` for the liberty-maven-plugin 
 OR  
-   b) Perform the steps in the "To Download the Repository" section, then add the following to your pom.xml and edit `<url>file:///tmp/devmode/repository</url>` to point to the unzipped repository.  Ensure you use proper [file URI format](https://en.wikipedia.org/wiki/File_URI_scheme) to point to a local directory on your filesystem.
-   ```
-     <pluginRepositories>
-        <pluginRepository>
-            <id>remote-repo</id>
-            <url>file:///tmp/devmode/repository</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-    ```
-2. In your pom.xml specify version `2.6.5-SNAPSHOT` for the liberty-maven-plugin 
+   b) In your pom.xml specify version `3.0.M1` for the liberty-maven-plugin, which will use the milestone release from Maven Central
+e.g.
 ```
 <plugin>
     <groupId>net.wasdev.wlp.maven.plugins</groupId>
     <artifactId>liberty-maven-plugin</artifactId>
-    <version>2.6.5-SNAPSHOT</version>
+    <version>3.0.M1</version>
 ```
-3. Ensure you have no compilation errors by running `mvn install`
-4. Provided you have no compilation errors, start liberty:dev mode with `mvn liberty:dev`
-5. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
-6. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 7777.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
-7. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
+2. Ensure you have no compilation errors by running `mvn install`
+3. Provided you have no compilation errors, start liberty:dev mode with `mvn liberty:dev`
+4. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
+5. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 7777.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
+6. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
