@@ -6,6 +6,9 @@
 * hot deployment with background compilation mode so that added pom dependencies, java, resource, and configuration file changes are picked up while your server is running
 * built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
 
+### Documentation
+https://github.com/WASdev/ci.maven/blob/master/docs/dev.md
+
 ### Specific functionalities:
 * default server starts on `mvn liberty:dev` and stops on ctl-c
 * java source file changes will be picked up dynamically (any java files in the `src/main/java` and `src/test/java` directory)
@@ -53,7 +56,7 @@ public class SystemHealth implements HealthCheck {
 </details>
 
 
-6. The console reflects integration tests are running automatically on a separate thread.
+6. Go to the console where you started dev mode, and press Enter.  The integration tests are run on a separate thread while dev mode is still active.
 
 <details>
     <summary>7. Create the src/main/java/io/openliberty/guides/inventory/InventoryHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint. </summary>
@@ -121,7 +124,7 @@ public class InventoryHealth implements HealthCheck {
 10. Make changes to the `src/main/webapp/index.html` (or any other webapp files). Changes are reflected on the home page http://localhost:9080/.
 
 <details>
-    <summary>11. Create the src/test/java/it/io/openliberty/guides/health/HealthTest.java class as an integration test. The tests are run and should pass. </summary>
+    <summary>11. Create the src/test/java/it/io/openliberty/guides/health/HealthTest.java class as an integration test. Press Enter in the console. The tests are run and should pass. </summary>
     
 ```
 package it.io.openliberty.guides.health;
