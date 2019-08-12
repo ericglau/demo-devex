@@ -1,0 +1,10 @@
+<!DOCTYPE xml>
+<web-ext
+    xmlns="http://websphere.ibm.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://websphere.ibm.com/xml/ns/javaee http://websphere.ibm.com/xml/ns/javaee/ibm-web-ext_1_0.xsd"
+    version="1.0">
+  <!-- TODO: Use this to force the app to run on the context root, since the ci.maven plugin isn't 
+            allowing us to deploy into the apps dir -->
+  <context-root uri="/"/>
+</web-ext>

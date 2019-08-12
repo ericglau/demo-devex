@@ -13,7 +13,8 @@
 // tag::HealthTestUtil[]
 package it.io.openliberty.guides.health;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -42,8 +43,7 @@ public class HealthTestUtil {
     String healthURL = baseUrl + HEALTH_ENDPOINT;
     Client client = ClientBuilder.newClient().register(JsrJsonpProvider.class);
     Response response = client.target(healthURL).request().get();
-    assertEquals("Response code is not matching " + healthURL,
-                 expectedResponseCode, response.getStatus());
+    assertEquals(expectedResponseCode, response.getStatus(), "Response code is not matching " + healthURL);
     JsonArray servicesStates = response.readEntity(JsonObject.class)
                                        .getJsonArray("checks");
     response.close();

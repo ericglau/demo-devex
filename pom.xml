@@ -27,6 +27,14 @@
     <packaging.type>usr</packaging.type>
   </properties>
 
+    <!-- Needed in order to use system-test snapshot artifacts -->
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
   <pluginRepositories>
         <!-- Configure Sonatype OSS Maven snapshots repository -->
         <pluginRepository>
@@ -47,7 +55,7 @@
           <dependency>
               <groupId>io.openliberty.features</groupId>
               <artifactId>features-bom</artifactId>
-              <version>19.0.0.6</version>
+              <version>19.0.0.7</version>
               <type>pom</type>
               <scope>import</scope>
           </dependency>
@@ -86,38 +94,26 @@
         <type>esa</type>
         <scope>provided</scope>
     </dependency>
-    <!-- tag::health[] -->
+        <!-- tag::health[] -->
     <!-- <dependency>
         <groupId>io.openliberty.features</groupId>
-        <artifactId>mpHealth-1.0</artifactId>
+        <artifactId>mpHealth-2.0</artifactId>
         <type>esa</type>
         <scope>provided</scope>
     </dependency> -->
     <!-- end::health[] -->
     <!-- For tests -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.4.2</version>
+        <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-rs-client</artifactId>
-      <version>3.2.6</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-rs-extension-providers</artifactId>
-      <version>3.2.6</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-      <version>1.0.4</version>
-      <scope>test</scope>
+        <groupId>com.github.dev-tools-for-enterprise-java</groupId>
+        <artifactId>system-test</artifactId>
+        <version>v0.2-alpha</version>
+        <scope>test</scope>
     </dependency>
     <!-- Java utility classes -->
     <dependency>
@@ -130,21 +126,7 @@
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>
         <version>2.3.1</version>
-    </dependency>
-    <dependency>
-        <groupId>com.sun.xml.bind</groupId>
-        <artifactId>jaxb-core</artifactId>
-        <version>2.3.0.1</version>
-    </dependency>
-    <dependency>
-        <groupId>com.sun.xml.bind</groupId>
-        <artifactId>jaxb-impl</artifactId>
-        <version>2.3.2</version>
-    </dependency>
-    <dependency>
-        <groupId>javax.activation</groupId>
-        <artifactId>activation</artifactId>
-        <version>1.1.1</version>
+        <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -186,7 +168,7 @@
           <assemblyArtifact>
             <groupId>io.openliberty</groupId>
             <artifactId>openliberty-kernel</artifactId>
-            <version>19.0.0.6</version>
+            <version>19.0.0.7</version>
             <type>zip</type>
           </assemblyArtifact>
           <configFile>src/main/liberty/config/server.xml</configFile>
@@ -204,6 +186,9 @@
               <looseApplication>true</looseApplication>
               <stripVersion>true</stripVersion>
               <installAppPackages>project</installAppPackages>
+              <!-- If unrecognized content is in server.xml, the plugin fails to parse the server.xml
+                   and assumes the app is to be deployed as a dropin app -->
+              <appsDirectory>apps</appsDirectory>
             </configuration>
           </execution>
           <execution>
@@ -211,6 +196,15 @@
             <configuration>
               <outputDirectory>target/wlp-package</outputDirectory>
             </configuration>
+          </execution>
+          <!-- Unbind the server start/stop goals because System Test will take care of server starting/stopping on its own -->
+          <execution>
+            <id>test-start-server</id>
+            <phase/>
+          </execution>
+          <execution>
+            <id>test-stop-server</id>
+            <phase/>
           </execution>
         </executions>
       </plugin>
@@ -230,11 +224,6 @@
               <includes>
                 <include>**/it/**/*.java</include>
               </includes>
-              <!-- tag::system-props[] -->
-              <systemPropertyVariables>
-                <liberty.test.port>${testServerHttpPort}</liberty.test.port>
-              </systemPropertyVariables>
-              <!-- end::system-props[] -->
             </configuration>
           </execution>
           <execution>
@@ -251,4 +240,42 @@
       </plugin>
     </plugins>
   </build>
+  
+  <!-- TODO: Eventually these system properties will be automatically set 
+             when dev mode is running -->
+  <profiles>
+    <profile>
+        <id>devMode</id>
+        <activation>
+            <property>
+                <name>dev</name>
+                <value>true</value>
+            </property>
+        </activation>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+						<configuration>
+              <systemProperties>
+                <MP_TEST_RUNTIME_URL>http://localhost:${testServerHttpPort}/</MP_TEST_RUNTIME_URL>
+                <WLP_USR_DIR>${project.build.directory}/liberty/wlp/usr</WLP_USR_DIR>
+              </systemProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+    </profile>
+  </profiles>
 </project>

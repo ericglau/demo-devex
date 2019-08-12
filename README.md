@@ -21,7 +21,7 @@ https://github.com/WASdev/ci.maven/blob/master/docs/dev.md
 ## How to try out liberty:dev mode
 1. Clone this repo `git clone git@github.com:ericglau/liberty-dev-demo.git`
 
-2. Run `mvn liberty:dev` to start liberty:dev mode
+2. Run `mvn liberty:dev -Ddev=true` to start liberty:dev mode
 
 3. Enable the mpHealth-1.0 dependency in the pom.xml.  Notice that the new dependency gets automatically installed.
 

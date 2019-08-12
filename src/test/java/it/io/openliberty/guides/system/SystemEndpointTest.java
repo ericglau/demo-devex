@@ -12,36 +12,31 @@
 // end::copyright[]
 package it.io.openliberty.guides.system;
 
-import static org.junit.Assert.assertEquals;
-import javax.json.JsonObject;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
-import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.eclipse.microprofile.system.test.jupiter.MicroProfileTest;
+import org.eclipse.microprofile.system.test.SharedContainerConfig;
+import org.junit.jupiter.api.Test;
+
+import io.openliberty.guides.system.SystemResource;
+import it.io.openliberty.guides.config.AppConfig;
+
+@MicroProfileTest
+@SharedContainerConfig(AppConfig.class)
 public class SystemEndpointTest {
+    
+    @Inject
+    public static SystemResource systemSvc;
 
-  @Test
-  public void testGetProperties() {
-    String port = System.getProperty("liberty.test.port");
-    String url = "http://localhost:" + port + "/";
+    @Test
+    public void testGetProperties() {
+        Map<String, String> obj = systemSvc.getProperties().readEntity(Map.class);
+        assertTrue("Linux".equals(obj.get("os.name")) || System.getProperty("os.name").equals(obj.get("os.name")),
+                "The system property for the local and remote JVM should match, or be Linux (for a Docker env)");
+    }
 
-    Client client = ClientBuilder.newClient();
-    client.register(JsrJsonpProvider.class);
-
-    WebTarget target = client.target(url + "system/properties");
-    Response response = target.request().get();
-
-    assertEquals("Incorrect response code from " + url, 200,
-                 response.getStatus());
-
-    JsonObject obj = response.readEntity(JsonObject.class);
-
-    assertEquals("The system property for the local and remote JVM should match",
-                 System.getProperty("os.name"), obj.getString("os.name"));
-
-    response.close();
-  }
 }
