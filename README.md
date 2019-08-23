@@ -193,9 +193,18 @@ public class HealthTest {
 
 ### (Optional) To Build from Source
 1. Clone [ci.ant](https://github.com/wasdev/ci.ant): `git clone https://github.com/wasdev/ci.ant.git`
-2. Clone [ci.common](https://github.com/wasdev/ci.common): `git clone https://github.com/wasdev/ci.common.git`
-3. Clone [ci.maven](https://github.com/wasdev/ci.maven): `git clone https://github.com/wasdev/ci.maven.git`
+2. Clone [ci.common](https://github.com/OpenLiberty/ci.common): `git clone https://github.com/OpenLiberty/ci.common.git`
+3. Clone [ci.maven](https://github.com/OpenLiberty/ci.maven): `git clone https://github.com/OpenLiberty/ci.maven.git`
 4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `3.1.M1-SNAPSHOT` of the liberty-maven-plugin
+
+or
+
+1. Create a new empty directory
+2. Open terminal in that empty directory
+3. Run command:
+```
+git clone https://github.com/wasdev/ci.ant.git && cd ci.ant && mvn clean install -DskipTests && cd .. && git clone https://github.com/OpenLiberty/ci.common.git && cd ci.common && mvn clean install && cd .. && git clone https://github.com/OpenLiberty/ci.maven.git && cd ci.maven && mvn clean install && cd ..
+```
 
 ### To Use 
 1. Do one of the following:  
