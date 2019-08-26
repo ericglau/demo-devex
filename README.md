@@ -1,13 +1,11 @@
 # liberty:dev Demo
 
-[Video of Demo](https://ibm.box.com/s/go8y0v9ls3lgxfcwymdd0vd20kp586nj)
-
 ## Overview of liberty:dev mode
 * hot deployment with background compilation mode so that added pom dependencies, java, resource, and configuration file changes are picked up while your server is running
 * built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
 
 ### Documentation
-https://github.com/WASdev/ci.maven/blob/master/docs/dev.md
+https://github.com/OpenLiberty/ci.maven/blob/master/docs/dev.md
 
 ### Specific functionalities:
 * default server starts on `mvn liberty:dev` and stops on ctl-c
@@ -197,18 +195,21 @@ public class HealthTest {
 3. Clone [ci.maven](https://github.com/OpenLiberty/ci.maven): `git clone https://github.com/OpenLiberty/ci.maven.git`
 4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `3.1.M1-SNAPSHOT` of the liberty-maven-plugin
 
-or
-
-1. Create a new empty directory
-2. Open terminal in that empty directory
-3. Run command:
+Or in one command from an empty directory:
 ```
 git clone https://github.com/wasdev/ci.ant.git && cd ci.ant && mvn clean install -DskipTests && cd .. && git clone https://github.com/OpenLiberty/ci.common.git && cd ci.common && mvn clean install && cd .. && git clone https://github.com/OpenLiberty/ci.maven.git && cd ci.maven && mvn clean install && cd ..
 ```
 
 ### To Use 
 1. Do one of the following:  
-   a) Perform the steps in the "To Build from Source", then in your pom.xml specify version `3.1.M1-SNAPSHOT` for the liberty-maven-plugin  
+   a) Perform the steps in the "To Build from Source", then in your pom.xml specify the following for the liberty-maven-plugin:
+```
+<plugin>
+    <groupId>io.openliberty.tools</groupId>
+    <artifactId>liberty-maven-plugin</artifactId>
+    <version>3.0-M2-SNAPSHOT</version>
+</plugin>
+```
 *or*  
    b) In your pom.xml specify version `3.0.M1` for the liberty-maven-plugin, which will use the milestone release from Maven Central  
 e.g.  
@@ -217,9 +218,9 @@ e.g.
     <groupId>net.wasdev.wlp.maven.plugins</groupId>
     <artifactId>liberty-maven-plugin</artifactId>
     <version>3.0.M1</version>
+</plugin>
 ```
-2. Ensure you have no compilation errors by running `mvn install`
-3. Provided you have no compilation errors, start liberty:dev mode with `mvn liberty:dev`
-4. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
-5. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 7777.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
-6. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
+2. Start liberty:dev mode with `mvn liberty:dev`
+3. Make any code changes to java source files, resource files or configuration files and see that the changes are picked up dynamically while the server is running
+4. Attach a debugger, by default the liberty:dev mode allows for a debugger to attach to port: 7777.  Note: this will not work if you have a jvmOptions property set in your pom.xml 
+5. When you are done use 'ctl-c' to terminate liberty:dev mode and stop your server
