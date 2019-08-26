@@ -30,7 +30,7 @@
   <dependencyManagement>
       <dependencies>
           <dependency>
-              <groupId>io.openliberty.features</groupId>
+              <groupId>com.ibm.websphere.appserver.features</groupId>
               <artifactId>features-bom</artifactId>
               <version>RELEASE</version>
               <type>pom</type>
@@ -72,12 +72,12 @@
         <scope>provided</scope>
     </dependency>
     <!-- tag::health[] -->
-    <!-- <dependency>
+    <dependency>
         <groupId>io.openliberty.features</groupId>
         <artifactId>mpHealth-1.0</artifactId>
         <type>esa</type>
         <scope>provided</scope>
-    </dependency> -->
+    </dependency>
     <!-- end::health[] -->
     <!-- For tests -->
     <dependency>
@@ -169,8 +169,8 @@
         <version>3.0.M1</version>
         <configuration>
           <assemblyArtifact>
-            <groupId>io.openliberty</groupId>
-            <artifactId>openliberty-kernel</artifactId>
+            <groupId>com.ibm.websphere.appserver.runtime</groupId>
+            <artifactId>wlp-kernel</artifactId>
             <version>RELEASE</version>
             <type>zip</type>
           </assemblyArtifact>
