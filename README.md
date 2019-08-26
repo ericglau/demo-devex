@@ -193,7 +193,7 @@ public class HealthTest {
 1. Clone [ci.ant](https://github.com/wasdev/ci.ant): `git clone https://github.com/wasdev/ci.ant.git`
 2. Clone [ci.common](https://github.com/OpenLiberty/ci.common): `git clone https://github.com/OpenLiberty/ci.common.git`
 3. Clone [ci.maven](https://github.com/OpenLiberty/ci.maven): `git clone https://github.com/OpenLiberty/ci.maven.git`
-4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `3.1.M1-SNAPSHOT` of the liberty-maven-plugin
+4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `3.0-M2-SNAPSHOT` of the liberty-maven-plugin
 
 Or in one command from an empty directory:
 ```
