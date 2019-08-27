@@ -21,9 +21,9 @@ https://github.com/OpenLiberty/ci.maven/blob/master/docs/dev.md
 
 2. Run `mvn liberty:dev` to start liberty:dev mode
 
-3. Enable the mpHealth-1.0 dependency in the pom.xml.  Notice that the new dependency gets automatically installed.
+3. Enable the `microprofile-health-api` dependency in the pom.xml.  Notice that the new dependency gets automatically installed.
 
-4. Add mpHealth-1.0 feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
+4. Add `mpHealth-1.0` feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
 
 <details>
     <summary>5. Create the src/main/java/io/openliberty/guides/system/SystemHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint.  </summary>
