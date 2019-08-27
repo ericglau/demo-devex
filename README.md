@@ -23,32 +23,40 @@ https://github.com/OpenLiberty/ci.maven/blob/master/docs/dev.md
 
 3. Enable the `microprofile-health-api` dependency in the pom.xml.  Notice that the new dependency gets automatically installed.
 
-4. Add `mpHealth-1.0` feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
+4. Add `mpHealth-2.0` feature to the server.xml, you can now access the http://localhost:9080/health endpoint (though it's just an empty array)
 
 <details>
-    <summary>5. Create the src/main/java/io/openliberty/guides/system/SystemHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint.  </summary>
+    <summary>5. Create the src/main/java/io/openliberty/guides/system/SystemLivenessCheck.java class.  Changes are reflected in the http://localhost:9080/health endpoint.  </summary>
 
 ```
 package io.openliberty.guides.system;
 
 import javax.enterprise.context.ApplicationScoped;
-import org.eclipse.microprofile.health.Health;
+
+import java.lang.management.MemoryMXBean;
+import java.lang.management.ManagementFactory;
+
+import org.eclipse.microprofile.health.Liveness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
-@Health
+@Liveness
 @ApplicationScoped
-public class SystemHealth implements HealthCheck {
-  @Override
-  public HealthCheckResponse call() {
-    if (!System.getProperty("wlp.server.name").startsWith("defaultServer")) {
-      return HealthCheckResponse.named(SystemResource.class.getSimpleName())
-                                .withData("default server", "not available").down()
-                                .build();
+public class SystemLivenessCheck implements HealthCheck {
+
+    @Override
+    public HealthCheckResponse call() {
+        MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
+        long memUsed = memBean.getHeapMemoryUsage().getUsed();
+        long memMax = memBean.getHeapMemoryUsage().getMax();
+  
+        return HealthCheckResponse.named(
+            SystemResource.class.getSimpleName() + " liveness check")
+                                  .withData("memory used", memUsed)
+                                  .withData("memory max", memMax)
+                                  .state(memUsed < memMax * 0.9).build();
     }
-    return HealthCheckResponse.named(SystemResource.class.getSimpleName())
-                              .withData("default server", "available").up().build();
-  }
+    
 }
 ```
 </details>
@@ -57,63 +65,45 @@ public class SystemHealth implements HealthCheck {
 6. Go to the console where you started dev mode, and press Enter.  The integration tests are run on a separate thread while dev mode is still active.
 
 <details>
-    <summary>7. Create the src/main/java/io/openliberty/guides/inventory/InventoryHealth.java class.  Changes are reflected in the http://localhost:9080/health endpoint. </summary>
+    <summary>7. Create the src/main/java/io/openliberty/guides/system/SystemReadinessCheck.java class.  Changes are reflected in the http://localhost:9080/health endpoint. </summary>
 
 ```
-package io.openliberty.guides.inventory;
+package io.openliberty.guides.system;
 
 import javax.enterprise.context.ApplicationScoped;
+
 import javax.inject.Inject;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import org.eclipse.microprofile.health.Health;
+import javax.inject.Provider;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.health.Readiness;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
 
-@Health
+@Readiness
 @ApplicationScoped
-public class InventoryHealth implements HealthCheck {
-  @Inject
-  InventoryConfig config;
+public class SystemReadinessCheck implements HealthCheck {
 
-  public boolean isHealthy() {
-    if (config.isInMaintenance()) {
-      return false;
+    @Inject
+    @ConfigProperty(name = "io_openliberty_guides_system_inMaintenance")
+    Provider<String> inMaintenance;
+	
+    @Override
+    public HealthCheckResponse call() {
+        HealthCheckResponseBuilder builder = HealthCheckResponse.named(
+		SystemResource.class.getSimpleName() + " readiness check");
+        if (inMaintenance != null && inMaintenance.get().equalsIgnoreCase("true")) {
+            return builder.withData("services", "not available").down().build();
+        }
+        return builder.withData("services", "available").up().build();
     }
-    try {
-      String url = InventoryUtils.buildUrl("http", "localhost",
-          Integer.parseInt(System.getProperty("default.http.port")),
-          "/system/properties");
-      Client client = ClientBuilder.newClient();
-      Response response = client.target(url).request(MediaType.APPLICATION_JSON)
-                                .get();
-      if (response.getStatus() != 200) {
-        return false;
-      }
-      return true;
-    } catch (Exception e) {
-      return false;
-    }
-  }
-
-  @Override
-  public HealthCheckResponse call() {
-    if (!isHealthy()) {
-      return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                                .withData("services", "not available").down()
-                                .build();
-    }
-    return HealthCheckResponse.named(InventoryResource.class.getSimpleName())
-                              .withData("services", "available").up().build();
-  }
-
+    
 }
 ```
 </details>
 
-8. Change the `io_openliberty_guides_inventory_inMaintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
+8. Change the `io_openliberty_guides_system_inMaintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
 
 
 9. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties`. Changes are reflected in the http://localhost:9080/health endpoint. Undo steps 8 and 9 afterwards.
@@ -122,61 +112,124 @@ public class InventoryHealth implements HealthCheck {
 10. Make changes to the `src/main/webapp/index.html` (or any other webapp files). Changes are reflected on the home page http://localhost:9080/.
 
 <details>
-    <summary>11. Create the src/test/java/io/openliberty/guides/health/HealthIT.java class as an integration test. Press Enter in the console. The tests are run and should pass. </summary>
+    <summary>11. Create the src/test/java/io/openliberty/guides/health/HealthEndpointIT.java class as an integration test. Press Enter in the console. The tests are run and should pass. </summary>
     
 ```
 package io.openliberty.guides.health;
 
 import static org.junit.Assert.assertEquals;
-import java.util.HashMap;
-import javax.json.JsonArray;
+
+import javax.json.JsonObject;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
+
+import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class HealthIT {
-
-    private JsonArray servicesStates;
-    private static HashMap<String, String> dataWhenServicesUP;
-    private static HashMap<String, String> dataWhenInventoryDown;
-
-    static {
-        dataWhenServicesUP = new HashMap<String, String>();
-        dataWhenInventoryDown = new HashMap<String, String>();
-
-        dataWhenServicesUP.put("SystemResource", "UP");
-        dataWhenServicesUP.put("InventoryResource", "UP");
-
-        dataWhenInventoryDown.put("SystemResource", "UP");
-        dataWhenInventoryDown.put("InventoryResource", "DOWN");
+public class HealthEndpointIT {
+    
+    private static String baseUrl;
+    private static final String HEALTH_ENDPOINT = "/health";
+    private static final String LIVENESS_ENDPOINT = "/health/live";
+    private static final String READINESS_ENDPOINT = "/health/ready";
+    
+    private Client client;
+    private Response response;
+    
+    @BeforeClass
+    public static void oneTimeSetup() {
+        String port = System.getProperty("liberty.test.port", "9080");
+        baseUrl = "http://localhost:" + port;
     }
-
-    @Test
-    public void testIfServicesAreUp() {
-        servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
-        checkStates(dataWhenServicesUP, servicesStates);
+    
+    @Before
+    public void setup() {
+        response = null;
+        client = ClientBuilder.newClient();
+        client.register(JsrJsonpProvider.class);
     }
-
-    @Test
-    public void testIfInventoryServiceIsDown() {
-        servicesStates = HealthTestUtil.connectToHealthEnpoint(200);
-        checkStates(dataWhenServicesUP, servicesStates);
-        HealthTestUtil.changeInventoryProperty(HealthTestUtil.INV_MAINTENANCE_FALSE, 
-                                               HealthTestUtil.INV_MAINTENANCE_TRUE);
-        servicesStates = HealthTestUtil.connectToHealthEnpoint(503);
-        checkStates(dataWhenInventoryDown, servicesStates);
-    }
-
-    private void checkStates(HashMap<String, String> testData, JsonArray servStates) {
-        testData.forEach((service, expectedState) -> {
-            assertEquals("The state of " + service + " service is not matching.", 
-                         expectedState, 
-                         HealthTestUtil.getActualState(service, servStates));
-        });
-    }
-
+    
     @After
     public void teardown() {
-        HealthTestUtil.cleanUp();
+        response.close();
+        client.close();
+    }
+
+    @Test
+    public void testHealthEndpoint() {
+        String healthURL = baseUrl + HEALTH_ENDPOINT;
+        response = this.getResponse(baseUrl + HEALTH_ENDPOINT);
+        this.assertResponse(healthURL, response);
+        
+        JsonObject healthJson = response.readEntity(JsonObject.class);
+        String expectedOutcome = "UP";
+        String actualOutcome = healthJson.getString("status");
+        assertEquals("Application should be healthy", expectedOutcome, actualOutcome);
+       
+        JsonObject healthCheck = healthJson.getJsonArray("checks").getJsonObject(0);
+        String healthCheckName = healthCheck.getString("name");
+        actualOutcome = healthCheck.getString("status");
+        assertEquals(healthCheckName + " wasn't healthy", expectedOutcome, actualOutcome);
+
+        healthCheck = healthJson.getJsonArray("checks").getJsonObject(1);
+        healthCheckName = healthCheck.getString("name");
+        actualOutcome = healthCheck.getString("status");
+        assertEquals(healthCheckName + " wasn't healthy", expectedOutcome, actualOutcome);
+    }
+
+    @Test
+    public void testLivenessEndpoint() {
+        String livenessURL = baseUrl + LIVENESS_ENDPOINT;
+        response = this.getResponse(baseUrl + LIVENESS_ENDPOINT);
+        this.assertResponse(livenessURL, response);
+        
+        JsonObject healthJson = response.readEntity(JsonObject.class);
+        String expectedOutcome = "UP";
+        String actualOutcome = healthJson.getString("status");
+        assertEquals("Applications liveness check passed", expectedOutcome, actualOutcome);
+    }
+
+    @Test
+    public void testReadinessEndpoint() {
+        String readinessURL = baseUrl + READINESS_ENDPOINT;
+        response = this.getResponse(baseUrl + READINESS_ENDPOINT);
+        this.assertResponse(readinessURL, response);
+        
+        JsonObject healthJson = response.readEntity(JsonObject.class);
+        String expectedOutcome = "UP";
+        String actualOutcome = healthJson.getString("status");
+        assertEquals("Applications readiness check passed", expectedOutcome, actualOutcome);
+    }
+   
+    /**
+     * <p>
+     * Returns response information from the specified URL.
+     * </p>
+     *
+     * @param url
+     *          - target URL.
+     * @return Response object with the response from the specified URL.
+     */
+    private Response getResponse(String url) {
+        return client.target(url).request().get();
+    }
+
+    /**
+     * <p>
+     * Asserts that the given URL has the correct response code of 200.
+     * </p>
+     *
+     * @param url
+     *          - target URL.
+     * @param response
+     *          - response received from the target URL.
+     */
+    private void assertResponse(String url, Response response) {
+        assertEquals("Incorrect response code from " + url, 200, response.getStatus());
     }
 
 }

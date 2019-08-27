@@ -51,14 +51,15 @@
       <version>1.2.0</version>
       <scope>provided</scope>
     </dependency>
-    <!-- 
+    <!--
     <dependency>
         <groupId>org.eclipse.microprofile.health</groupId>
         <artifactId>microprofile-health-api</artifactId>
-        <version>1.0</version>
+        <version>2.0</version>
         <scope>provided</scope>
-    </dependency> 
+    </dependency>
     -->
+    
     <!-- For tests -->
     <dependency>
       <groupId>junit</groupId>
