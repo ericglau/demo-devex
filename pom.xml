@@ -27,27 +27,12 @@
     <packaging.type>usr</packaging.type>
   </properties>
 
-  <pluginRepositories>
-        <!-- Configure Sonatype OSS Maven snapshots repository -->
-        <pluginRepository>
-            <id>remote-repo</id>
-            <!-- <url>https://pages.github.ibm.com/mp-ls/ci.maven/</url> -->
-            <url>file://${project.basedir}/repository</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-
   <dependencyManagement>
       <dependencies>
           <dependency>
               <groupId>io.openliberty.features</groupId>
               <artifactId>features-bom</artifactId>
-              <version>19.0.0.6</version>
+              <version>RELEASE</version>
               <type>pom</type>
               <scope>import</scope>
           </dependency>
@@ -186,7 +171,7 @@
           <assemblyArtifact>
             <groupId>io.openliberty</groupId>
             <artifactId>openliberty-kernel</artifactId>
-            <version>19.0.0.6</version>
+            <version>RELEASE</version>
             <type>zip</type>
           </assemblyArtifact>
           <configFile>src/main/liberty/config/server.xml</configFile>
