@@ -10,7 +10,7 @@
 *     IBM Corporation - initial API and implementation
 *******************************************************************************/
 // end::copyright[]
-package ut.io.openliberty.guides.health;
+package io.openliberty.guides.inventory;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

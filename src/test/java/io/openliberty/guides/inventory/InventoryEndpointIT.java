@@ -11,7 +11,7 @@
  *******************************************************************************/
 // end::copyright[]
 // tag::testClass[]
-package it.io.openliberty.guides.inventory;
+package io.openliberty.guides.inventory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

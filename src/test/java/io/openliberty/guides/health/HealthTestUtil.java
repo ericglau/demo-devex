@@ -11,7 +11,7 @@
  *******************************************************************************/
 // end::comment[]
 // tag::HealthTestUtil[]
-package it.io.openliberty.guides.health;
+package io.openliberty.guides.health;
 
 import static org.junit.Assert.assertEquals;
 import java.io.BufferedReader;
