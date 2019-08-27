@@ -17,7 +17,7 @@ https://github.com/OpenLiberty/ci.maven/blob/master/docs/dev.md
 * debug port opened by default at port: 7777, works with any debugger
 
 ## How to try out liberty:dev mode
-1. Clone this repo `git clone git@github.com:ericglau/liberty-dev-demo.git`
+1. Clone this repo.
 
 2. Run `mvn liberty:dev` to start liberty:dev mode
 
