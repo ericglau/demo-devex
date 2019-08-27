@@ -122,7 +122,7 @@ public class InventoryHealth implements HealthCheck {
 10. Make changes to the `src/main/webapp/index.html` (or any other webapp files). Changes are reflected on the home page http://localhost:9080/.
 
 <details>
-    <summary>11. Create the src/test/java/it/io/openliberty/guides/health/HealthTest.java class as an integration test. Press Enter in the console. The tests are run and should pass. </summary>
+    <summary>11. Create the src/test/java/it/io/openliberty/guides/health/HealthIT.java class as an integration test. Press Enter in the console. The tests are run and should pass. </summary>
     
 ```
 package it.io.openliberty.guides.health;
@@ -133,7 +133,7 @@ import javax.json.JsonArray;
 import org.junit.After;
 import org.junit.Test;
 
-public class HealthTest {
+public class HealthIT {
 
     private JsonArray servicesStates;
     private static HashMap<String, String> dataWhenServicesUP;
