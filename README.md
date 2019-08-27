@@ -2,7 +2,7 @@
 
 ## Overview of liberty:dev mode
 * hot deployment with background compilation mode so that added pom dependencies, java, resource, and configuration file changes are picked up while your server is running
-* built on top of the [ci.maven](https://github.com/WASdev/ci.maven) plugin
+* built on top of the [ci.maven](https://github.com/OpenLiberty/ci.maven) plugin
 
 ### Documentation
 https://github.com/OpenLiberty/ci.maven/blob/master/docs/dev.md
@@ -113,7 +113,7 @@ public class InventoryHealth implements HealthCheck {
 ```
 </details>
 
-8. Change the `in_maintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
+8. Change the `io_openliberty_guides_inventory_inMaintenance` property in `resources/CustomConfigSource.json` to true.  Changes are reflected in the http://localhost:9080/health endpoint.
 
 
 9. Change the `config_ordinal` value to 800 in the `src/main/resources/META-INF/microprofile-config.properties`. Changes are reflected in the http://localhost:9080/health endpoint. Undo steps 8 and 9 afterwards.
@@ -190,14 +190,14 @@ public class HealthIT {
 ## How to use liberty:dev in an existing project
 
 ### (Optional) To Build from Source
-1. Clone [ci.ant](https://github.com/wasdev/ci.ant): `git clone https://github.com/wasdev/ci.ant.git`
+1. Clone [ci.ant](https://github.com/OpenLiberty/ci.ant): `git clone https://github.com/OpenLiberty/ci.ant.git`
 2. Clone [ci.common](https://github.com/OpenLiberty/ci.common): `git clone https://github.com/OpenLiberty/ci.common.git`
 3. Clone [ci.maven](https://github.com/OpenLiberty/ci.maven): `git clone https://github.com/OpenLiberty/ci.maven.git`
 4. Build ci.ant `mvn clean install -DskipTests`, then ci.common `mvn clean install`, and then ci.maven `mvn clean install` to generate `3.0-M2-SNAPSHOT` of the liberty-maven-plugin
 
 Or in one command from an empty directory:
 ```
-git clone https://github.com/wasdev/ci.ant.git && cd ci.ant && mvn clean install -DskipTests && cd .. && git clone https://github.com/OpenLiberty/ci.common.git && cd ci.common && mvn clean install && cd .. && git clone https://github.com/OpenLiberty/ci.maven.git && cd ci.maven && mvn clean install && cd ..
+git clone https://github.com/OpenLiberty/ci.ant.git && cd ci.ant && mvn clean install -DskipTests && cd .. && git clone https://github.com/OpenLiberty/ci.common.git && cd ci.common && mvn clean install && cd .. && git clone https://github.com/OpenLiberty/ci.maven.git && cd ci.maven && mvn clean install && cd ..
 ```
 
 ### To Use 
