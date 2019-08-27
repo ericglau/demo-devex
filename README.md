@@ -14,10 +14,10 @@ https://github.com/OpenLiberty/ci.maven/blob/master/docs/dev.md
 * resource file changes (any files in the `src/main/resources` directory)
 * unit and integration tests run on a seperate thread after every successful compile  
 * feature dependency changes in pom.xml are picked up dynamically, triggers feature installation
-* debug port opened by default at port: 7777, works with any debugger (tested with VS Code and Eclipse)
+* debug port opened by default at port: 7777, works with any debugger
 
 ## How to try out liberty:dev mode
-1. Clone this repo `git clone git@github.com:ericglau/liberty-dev-demo.git`
+1. Clone this repo.
 
 2. Run `mvn liberty:dev` to start liberty:dev mode
 
