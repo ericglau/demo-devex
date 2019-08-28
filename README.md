@@ -245,13 +245,13 @@ git clone https://github.com/OpenLiberty/ci.ant.git && cd ci.ant && mvn clean in
 </plugin>
 ```
 *or*  
-   b) In your pom.xml specify version `3.0.M1` for the liberty-maven-plugin, which will use the milestone release from Maven Central  
+   b) In your pom.xml specify the following for the liberty-maven-plugin, which will use the milestone release from Maven Central  
 e.g.  
 ```
 <plugin>
-    <groupId>net.wasdev.wlp.maven.plugins</groupId>
+    <groupId>io.openliberty.tools</groupId>
     <artifactId>liberty-maven-plugin</artifactId>
-    <version>3.0.M1</version>
+    <version>3.0-M2</version>
 </plugin>
 ```
 2. Start liberty:dev mode with `mvn liberty:dev`
