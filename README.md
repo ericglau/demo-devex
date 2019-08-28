@@ -205,29 +205,10 @@ public class HealthEndpointIT {
         assertEquals("Applications readiness check passed", expectedOutcome, actualOutcome);
     }
    
-    /**
-     * <p>
-     * Returns response information from the specified URL.
-     * </p>
-     *
-     * @param url
-     *          - target URL.
-     * @return Response object with the response from the specified URL.
-     */
     private Response getResponse(String url) {
         return client.target(url).request().get();
     }
 
-    /**
-     * <p>
-     * Asserts that the given URL has the correct response code of 200.
-     * </p>
-     *
-     * @param url
-     *          - target URL.
-     * @param response
-     *          - response received from the target URL.
-     */
     private void assertResponse(String url, Response response) {
         assertEquals("Incorrect response code from " + url, 200, response.getStatus());
     }
