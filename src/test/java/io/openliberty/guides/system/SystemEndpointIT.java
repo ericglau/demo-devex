@@ -10,7 +10,7 @@
 *     IBM Corporation - initial API and implementation
 *******************************************************************************/
 // end::copyright[]
-package it.io.openliberty.guides.system;
+package io.openliberty.guides.system;
 
 import static org.junit.Assert.assertEquals;
 import javax.json.JsonObject;
@@ -21,11 +21,11 @@ import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.Test;
 
-public class SystemEndpointTest {
+public class SystemEndpointIT {
 
   @Test
   public void testGetProperties() {
-    String port = System.getProperty("liberty.test.port");
+    String port = System.getProperty("liberty.http.port");
     String url = "http://localhost:" + port + "/";
 
     Client client = ClientBuilder.newClient();

@@ -11,7 +11,7 @@
  *******************************************************************************/
 // end::copyright[]
 // tag::testClass[]
-package it.io.openliberty.guides.inventory;
+package io.openliberty.guides.inventory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +26,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class InventoryEndpointTest {
+public class InventoryEndpointIT {
 
   private static String port;
   private static String baseUrl;
@@ -38,7 +38,7 @@ public class InventoryEndpointTest {
 
   @BeforeClass
   public static void oneTimeSetup() {
-    port = System.getProperty("liberty.test.port");
+    port = System.getProperty("liberty.http.port");
     baseUrl = "http://localhost:" + port + "/";
   }
 

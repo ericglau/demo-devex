@@ -30,7 +30,7 @@ public class InventoryConfig {
 
   // tag::build-in-converter[]
   @Inject
-  @ConfigProperty(name = "io_openliberty_guides_inventory_inMaintenance")
+  @ConfigProperty(name = "io_openliberty_guides_system_inMaintenance")
   private Provider<Boolean> inMaintenance;
   // end::build-in-converter[]
 
