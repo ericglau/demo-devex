@@ -8,3 +8,6 @@ MANIFEST.MF
 README.html
 .DS_Store
 /build/
+.vscode
+.idea
+microprofile-health.iml
